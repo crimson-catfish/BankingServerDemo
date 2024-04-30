@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "startMoney",
+      "type": "java.math.BigDecimal",
+      "description": "for demonstration simplicity new users get free money."
+  }
+] }
