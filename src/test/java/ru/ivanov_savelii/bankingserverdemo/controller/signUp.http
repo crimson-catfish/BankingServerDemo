@@ -1,0 +1,4 @@
+POST http://localhost:8080/signup
+Content-Type: application/json
+
+{"login": "asdf", "password":  "312354"}
