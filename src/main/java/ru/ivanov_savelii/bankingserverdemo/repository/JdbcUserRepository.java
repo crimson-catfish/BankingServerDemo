@@ -30,7 +30,7 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     @Override
-    public User findById(long id) {
+    public User findById(Long id) {
         try {
             return jdbcTemplate.queryForObject(
                     "SELECT * FROM users WHERE id=?",
@@ -52,7 +52,7 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     @Override
-    public int deleteById(long id) {
+    public int deleteById(Long id) {
         return jdbcTemplate.update("DELETE FROM users WHERE id=?", id);
     }
 }

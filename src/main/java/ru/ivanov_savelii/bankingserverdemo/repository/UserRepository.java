@@ -6,7 +6,7 @@ public interface UserRepository {
 
     int save(User user);
     int update(User user);
-    User findById(long id);
+    User findById(Long id);
     User findByLogin(String login);
-    int deleteById(long id);
+    int deleteById(Long id);
 }
