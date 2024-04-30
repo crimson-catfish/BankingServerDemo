@@ -16,6 +16,6 @@ services:
       PGADMIN_DEFAULT_EMAIL: postgres@postgres.com
       PGADMIN_DEFAULT_PASSWORD: postgres
     ports:
-      - "8080:80"
+      - "8081:80"
     depends_on:
       - postgresdb
