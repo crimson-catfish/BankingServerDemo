@@ -1,4 +1,4 @@
-package ru.ivanov_savelii.bankingserverdemo.model;
+package ru.ivanov_savelii.bankingserverdemo.entity;
 
 import lombok.*;
 
