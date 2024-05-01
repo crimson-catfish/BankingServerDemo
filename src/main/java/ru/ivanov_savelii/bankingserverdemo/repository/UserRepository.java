@@ -1,6 +1,6 @@
 package ru.ivanov_savelii.bankingserverdemo.repository;
 
-import ru.ivanov_savelii.bankingserverdemo.model.User;
+import ru.ivanov_savelii.bankingserverdemo.entity.User;
 
 public interface UserRepository {
 
@@ -8,5 +8,6 @@ public interface UserRepository {
     int update(User user);
     User findById(Long id);
     User findByLogin(String login);
+    boolean existsByLogin(String login);
     int deleteById(Long id);
 }

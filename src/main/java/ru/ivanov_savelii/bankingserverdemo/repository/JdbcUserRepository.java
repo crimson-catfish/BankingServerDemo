@@ -4,8 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
-import ru.ivanov_savelii.bankingserverdemo.model.User;
+import ru.ivanov_savelii.bankingserverdemo.entity.User;
 
 @Repository
 public class JdbcUserRepository implements UserRepository {
@@ -34,7 +35,9 @@ public class JdbcUserRepository implements UserRepository {
         try {
             return jdbcTemplate.queryForObject(
                     "SELECT * FROM users WHERE id=?",
-                    BeanPropertyRowMapper.newInstance(User.class), id);
+                    BeanPropertyRowMapper.newInstance(User.class),
+                    id
+            );
         } catch (IncorrectResultSizeDataAccessException e) {
             return null;
         }
@@ -45,10 +48,21 @@ public class JdbcUserRepository implements UserRepository {
         try {
             return jdbcTemplate.queryForObject(
                     "SELECT * FROM users WHERE login=?",
-                    BeanPropertyRowMapper.newInstance(User.class), login);
+                    BeanPropertyRowMapper.newInstance(User.class),
+                    login
+            );
         } catch (IncorrectResultSizeDataAccessException e) {
             return null;
         }
+    }
+
+    @Override
+    public boolean existsByLogin(String login) {
+        return jdbcTemplate.queryForObject(
+                "SELECT id FROM users WHERE login=?",
+                BeanPropertyRowMapper.newInstance(Long.class),
+                login
+        ) == null;
     }
 
     @Override
