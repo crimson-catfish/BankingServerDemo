@@ -1,13 +1,23 @@
-@host = localhost:8083
+@host = localhost:8080
 @rootRoute = http://{{host}}
+
 
 ###
 # @name GetBalance
 GET {{rootRoute}}/money?id=2
+
 
 ###
 # @name SignUp
 POST {{rootRoute}}/signup
 Content-Type: application/json
 
-{"login": "asdf", "password":  "312354"}
+{"login": "asdf", "password": "pass"}
+
+
+###
+# @name SendMoney
+POST {{rootRoute}}/money
+Content-Type: application/json
+
+{"to": "asdf", "amount": 13.0}
