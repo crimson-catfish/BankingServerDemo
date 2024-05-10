@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwsHeader;
@@ -13,8 +15,9 @@ import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.web.bind.annotation.*;
+import ru.ivanov_savelii.bankingserverdemo.dto.request.SignInRequest;
 import ru.ivanov_savelii.bankingserverdemo.dto.request.SignUpRequest;
-import ru.ivanov_savelii.bankingserverdemo.dto.response.JwtAuthenticationResponse;
+import ru.ivanov_savelii.bankingserverdemo.dto.response.SignResponse;
 import ru.ivanov_savelii.bankingserverdemo.entity.User;
 import ru.ivanov_savelii.bankingserverdemo.repository.UserRepository;
 
@@ -27,6 +30,9 @@ public class AccountController {
 
     @Autowired
     UserRepository repository;
+
+    @Autowired
+    AuthenticationManager authenticationManager;
 
     @Value("${startMoney}")
     private BigDecimal startMoney;
@@ -60,7 +66,41 @@ public class AccountController {
 
         String token = createToken(user);
 
-        return new ResponseEntity<>(new JwtAuthenticationResponse(token, user), HttpStatus.OK);
+        return new ResponseEntity<>(new SignResponse(token, user), HttpStatus.OK);
+    }
+
+    @PostMapping("/signin")
+    public ResponseEntity<Object> signIn(@RequestBody SignInRequest request) {
+        if (request.getLogin() == null || request.getPassword() == null)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+
+        try {
+            System.out.println(request.getLogin());
+            System.out.println(request.getPassword());
+            System.out.println(new UsernamePasswordAuthenticationToken(request.getLogin(), request.getPassword()));
+            System.out.println(new UsernamePasswordAuthenticationToken(request.getLogin(), request.getPassword()).getCredentials());
+
+
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getLogin(),
+                            request.getPassword()
+                    )
+            );
+        } catch (Exception e) {
+            return new ResponseEntity<>("Wrong login or password." + e, HttpStatus.BAD_REQUEST);
+        }
+
+        try {
+            User user = repository.findByLogin(request.getLogin());
+            String token = createToken(user);
+            return new ResponseEntity<>(new SignResponse(token, user), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error creating token: " + e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
     }
 
     private String createToken(User user) {

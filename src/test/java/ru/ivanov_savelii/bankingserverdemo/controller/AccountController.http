@@ -2,10 +2,24 @@
 @rootRoute = http://{{host}}
 
 ###
+# @name SignIn
+POST {{rootRoute}}/signin
+Content-Type: application/json
+
+{
+  "login": "ashdf",
+  "password": "pass"
+}
+
+
+###
 # @name SignUp
 POST {{rootRoute}}/signup
 Content-Type: application/json
 
-{"login": "asdf", "password": "pass"}
+{
+  "login": "ashkijhgdf",
+  "password": "pass"
+}
 
 
