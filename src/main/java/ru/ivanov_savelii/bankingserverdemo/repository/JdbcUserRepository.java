@@ -1,14 +1,15 @@
 package ru.ivanov_savelii.bankingserverdemo.repository;
 
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import ru.ivanov_savelii.bankingserverdemo.entity.User;
 
 @Repository
+@NoArgsConstructor
 public class JdbcUserRepository implements UserRepository {
 
     @Autowired
@@ -18,7 +19,7 @@ public class JdbcUserRepository implements UserRepository {
     public int save(User user) {
         return jdbcTemplate.update(
                 "INSERT INTO users (login, passhash, balance) VALUES (?,?,?)",
-                user.getLogin(), user.getPasshash(), user.getBalance()
+                user.getLogin(), user.getEncryptedPassword(), user.getBalance()
         );
     }
 
@@ -26,7 +27,7 @@ public class JdbcUserRepository implements UserRepository {
     public int update(User user) {
         return jdbcTemplate.update(
                 "UPDATE users SET login=?, passhash=?, balance=? WHERE id=?",
-                user.getLogin(), user.getPasshash(), user.getBalance(), user.getId()
+                user.getLogin(), user.getEncryptedPassword(), user.getBalance(), user.getId()
         );
     }
 
