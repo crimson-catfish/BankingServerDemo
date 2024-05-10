@@ -1,26 +1,20 @@
 package ru.ivanov_savelii.bankingserverdemo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.ivanov_savelii.bankingserverdemo.model.SignUpRequest;
-import ru.ivanov_savelii.bankingserverdemo.model.User;
+import ru.ivanov_savelii.bankingserverdemo.entity.User;
 import ru.ivanov_savelii.bankingserverdemo.repository.UserRepository;
 
 import java.math.BigDecimal;
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
-//@RequestMapping("/")
-public class UserController {
+@RequestMapping("/money")
+public class MoneyController {
 
     @Autowired
     UserRepository repository;
-
-    @Value("${startMoney}")
-    private BigDecimal startMoney;
-
 
     @GetMapping("/money")
     public ResponseEntity<BigDecimal> getBalance(Long id) {
@@ -38,21 +32,6 @@ public class UserController {
         return new ResponseEntity<>(balance, HttpStatus.OK);
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<User> signUp(@RequestBody SignUpRequest request) {
-        if (request.getLogin() == null || request.getPassword() == null)
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
-        User user = new User(request.getLogin(), request.getPassword(), startMoney);
-
-        try {
-            repository.save(user);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
 
     @PostMapping("/moneyId")
     public ResponseEntity<String> sendMoneyById(@RequestBody Long senderId, Long receiverId, BigDecimal amount) {
@@ -100,4 +79,4 @@ public class UserController {
                 "Send " + amount.toString() + " from " + sender.getLogin() + " to " + receiver.getLogin(),
                 HttpStatus.OK);
     }
-}
+    }
