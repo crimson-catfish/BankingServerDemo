@@ -18,16 +18,16 @@ public class JdbcUserRepository implements UserRepository {
     @Override
     public int save(User user) {
         return jdbcTemplate.update(
-                "INSERT INTO users (login, passhash, balance) VALUES (?,?,?)",
-                user.getLogin(), user.getEncryptedPassword(), user.getBalance()
+                "INSERT INTO users (login, password, balance) VALUES (?,?,?)",
+                user.getLogin(), user.getPassword(), user.getBalance()
         );
     }
 
     @Override
     public int update(User user) {
         return jdbcTemplate.update(
-                "UPDATE users SET login=?, passhash=?, balance=? WHERE id=?",
-                user.getLogin(), user.getEncryptedPassword(), user.getBalance(), user.getId()
+                "UPDATE users SET login=?, password=?, balance=? WHERE id=?",
+                user.getLogin(), user.getPassword(), user.getBalance(), user.getId()
         );
     }
 
