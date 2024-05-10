@@ -11,7 +11,7 @@ import ru.ivanov_savelii.bankingserverdemo.entity.User;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class JwtAuthenticationResponse {
+public class SignResponse {
     private String token;
     private User user;
 }
