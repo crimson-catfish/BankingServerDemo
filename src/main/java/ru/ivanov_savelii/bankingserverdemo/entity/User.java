@@ -18,9 +18,9 @@ public class User implements UserDetails {
 
     public User() {}
 
-    public User(String login, String encryptedPassword, BigDecimal balance) {
+    public User(String login, String password, BigDecimal balance) {
         this.login = login;
-        this.password = encryptedPassword;
+        this.password = password;
         this.balance = balance;
     }
 
