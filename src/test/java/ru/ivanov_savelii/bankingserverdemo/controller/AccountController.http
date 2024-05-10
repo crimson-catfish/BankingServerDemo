@@ -1,9 +1,9 @@
 @host = localhost:8080
-@rootRoute = http://{{host}}
+@root = http://{{host}}
 
 ###
 # @name SignIn
-POST {{rootRoute}}/signin
+POST {{root}}/signin
 Content-Type: application/json
 
 {
@@ -14,7 +14,7 @@ Content-Type: application/json
 
 ###
 # @name SignUp
-POST {{rootRoute}}/signup
+POST {{root}}/signup
 Content-Type: application/json
 
 {
