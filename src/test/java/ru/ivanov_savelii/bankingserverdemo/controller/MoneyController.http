@@ -13,5 +13,9 @@ Authorization: Bearer {{jwt}}
 # @name SendMoney
 POST {{root}}
 Content-Type: application/json
+Authorization: Bearer {{jwt}}
 
-{"to": "asdf", "amount": 13.0}
+{
+  "to": "asdf",
+  "amount": 1.0
+}
