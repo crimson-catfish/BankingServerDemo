@@ -4,5 +4,15 @@
       "name": "startMoney",
       "type": "java.math.BigDecimal",
       "description": "for demonstration simplicity new users get free money."
-  }
-] }
+    },
+    {
+      "name": "secretKey",
+      "type": "java.lang.String",
+      "description": "JWT secret key."
+    },
+    {
+      "name": "expirationTimeHours",
+      "type": "java.lang.Integer",
+      "description": "Description for expirationTimeHours."
+    }
+  ] }
