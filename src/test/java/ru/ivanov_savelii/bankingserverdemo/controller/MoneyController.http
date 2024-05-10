@@ -1,15 +1,15 @@
 @host = localhost:8080
-@rootRoute = http://{{host}}
+@rootRoute = http://{{host}}/money
 
 
 ###
 # @name GetBalance
-GET {{rootRoute}}/money?id=2
+GET {{rootRoute}}?id=2
 
 
 ###
 # @name SendMoney
-POST {{rootRoute}}/money
+POST {{rootRoute}}
 Content-Type: application/json
 
 {"to": "asdf", "amount": 13.0}
