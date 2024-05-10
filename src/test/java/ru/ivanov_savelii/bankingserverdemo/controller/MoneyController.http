@@ -1,15 +1,17 @@
 @host = localhost:8080
-@rootRoute = http://{{host}}/money
+@root = http://{{host}}/money
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTUzNzk5MDcsInN1YiI6ImFzaGRmIn0.iyw1NVJZdTmgq0_gXAasuvLxkE0U6gPyd4XIZAiaApo
 
 
 ###
 # @name GetBalance
-GET {{rootRoute}}?id=2
+GET {{root}}
+Authorization: Bearer {{jwt}}
 
 
 ###
 # @name SendMoney
-POST {{rootRoute}}
+POST {{root}}
 Content-Type: application/json
 
 {"to": "asdf", "amount": 13.0}
