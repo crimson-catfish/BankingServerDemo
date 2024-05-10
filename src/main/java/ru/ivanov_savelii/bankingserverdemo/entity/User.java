@@ -13,14 +13,14 @@ public class User implements UserDetails {
 
     private Long id;
     private String login;
-    private String encryptedPassword;
+    private String password;
     private BigDecimal balance;
 
     public User() {}
 
     public User(String login, String encryptedPassword, BigDecimal balance) {
         this.login = login;
-        this.encryptedPassword = encryptedPassword;
+        this.password = encryptedPassword;
         this.balance = balance;
     }
 
@@ -31,7 +31,7 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return encryptedPassword;
+        return password;
     }
 
     @Override
