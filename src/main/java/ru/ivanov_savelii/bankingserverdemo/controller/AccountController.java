@@ -93,7 +93,6 @@ public class AccountController {
             String token = createToken(user);
 
             LogService.logger.info("User \"{}\" signed in", user.getLogin());
-//            LogService.Log("aSDFGFDSA");
             return new ResponseEntity<>(new SignResponse(token, user), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error creating token: " + e, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -115,5 +114,4 @@ public class AccountController {
 
         return encoder.encode(params).getTokenValue();
     }
-
 }

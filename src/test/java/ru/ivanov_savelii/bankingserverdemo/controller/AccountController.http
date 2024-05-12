@@ -7,7 +7,7 @@ POST {{root}}/signin
 Content-Type: application/json
 
 {
-  "login": "ashdf",
+  "login": "test_login_1",
   "password": "pass"
 }
 
@@ -18,7 +18,7 @@ POST {{root}}/signup
 Content-Type: application/json
 
 {
-  "login": "ashkijhgdf",
+  "login": "test_login_1",
   "password": "pass"
 }
 

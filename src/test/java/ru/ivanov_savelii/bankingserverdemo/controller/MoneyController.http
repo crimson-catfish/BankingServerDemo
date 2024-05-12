@@ -1,6 +1,7 @@
 @host = localhost:8080
 @root = http://{{host}}/money
-@jwt = eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTUzNzk5MDcsInN1YiI6ImFzaGRmIn0.iyw1NVJZdTmgq0_gXAasuvLxkE0U6gPyd4XIZAiaApo
+// enter token from signin/signup response
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTU1Njg5MTcsInN1YiI6ImFzaGRmIn0.vhkVy_45yJz1MUcaJOTgxqgCtSLSj43WGpvqbCpcKuc
 
 
 ###
@@ -16,6 +17,6 @@ Content-Type: application/json
 Authorization: Bearer {{jwt}}
 
 {
-  "to": "asdf",
-  "amount": 1.0
+  "to": "test_login_2",
+  "amount": 1.5
 }
