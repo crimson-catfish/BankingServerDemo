@@ -20,6 +20,7 @@ import ru.ivanov_savelii.bankingserverdemo.dto.request.SignUpRequest;
 import ru.ivanov_savelii.bankingserverdemo.dto.response.SignResponse;
 import ru.ivanov_savelii.bankingserverdemo.entity.User;
 import ru.ivanov_savelii.bankingserverdemo.repository.UserRepository;
+import ru.ivanov_savelii.bankingserverdemo.service.LogService;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -43,12 +44,12 @@ public class AccountController {
     @Value("${expirationTimeHours}")
     private Integer expirationTimeHours;
 
+
     @PostMapping("/signup")
     public ResponseEntity<Object> signUp(@RequestBody SignUpRequest request) {
         if (request.getLogin() == null || request.getPassword() == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-        System.out.println(secretKey);
         User user = new User(request.getLogin(), new BCryptPasswordEncoder().encode(request.getPassword()), startMoney);
 
         try {
@@ -66,6 +67,7 @@ public class AccountController {
 
         String token = createToken(user);
 
+        LogService.logger.info("User \"{}\" created with {}start money", user.getLogin(), user.getBalance());
         return new ResponseEntity<>(new SignResponse(token, user), HttpStatus.OK);
     }
 
@@ -76,12 +78,6 @@ public class AccountController {
 
 
         try {
-            System.out.println(request.getLogin());
-            System.out.println(request.getPassword());
-            System.out.println(new UsernamePasswordAuthenticationToken(request.getLogin(), request.getPassword()));
-            System.out.println(new UsernamePasswordAuthenticationToken(request.getLogin(), request.getPassword()).getCredentials());
-
-
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             request.getLogin(),
@@ -95,12 +91,13 @@ public class AccountController {
         try {
             User user = repository.findByLogin(request.getLogin());
             String token = createToken(user);
+
+            LogService.logger.info("User \"{}\" signed in", user.getLogin());
+//            LogService.Log("aSDFGFDSA");
             return new ResponseEntity<>(new SignResponse(token, user), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error creating token: " + e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-
     }
 
     private String createToken(User user) {

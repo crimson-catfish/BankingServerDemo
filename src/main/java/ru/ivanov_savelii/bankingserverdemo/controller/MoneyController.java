@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.ivanov_savelii.bankingserverdemo.dto.request.SendMoneyRequest;
 import ru.ivanov_savelii.bankingserverdemo.entity.User;
 import ru.ivanov_savelii.bankingserverdemo.repository.UserRepository;
+import ru.ivanov_savelii.bankingserverdemo.service.LogService;
 
 import java.math.BigDecimal;
 
@@ -30,6 +31,7 @@ public class MoneyController {
             return new ResponseEntity<>("Cannot get user balance from database.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+        LogService.logger.info("User \"{}\" balance is {}$", auth.getName(), balance);
         return new ResponseEntity<>(balance, HttpStatus.OK);
     }
 
@@ -62,6 +64,7 @@ public class MoneyController {
             return new ResponseEntity<>("Error in database, money not received, probably it's disappeared :(", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+        LogService.logger.info("User \"{}\" sent {}$ to the user \"{}\"", auth.getName(), request.getAmount(), request.getTo());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
