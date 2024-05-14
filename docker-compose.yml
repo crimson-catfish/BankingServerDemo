@@ -1,21 +1,33 @@
-version: '3'
-
 services:
+
+  banking-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgresdb
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresdb:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+
   postgresdb:
     image: postgres
     environment:
       POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
     volumes:
       - /var/lib/postgresql/data
-    ports:
-      - "5432:5432"
 
-  pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: postgres@postgres.com
-      PGADMIN_DEFAULT_PASSWORD: postgres
-    ports:
-      - "8081:80"
-    depends_on:
-      - postgresdb
+#  pgadmin:
+#    image: dpage/pgadmin4
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: postgres@postgres.com
+#      PGADMIN_DEFAULT_PASSWORD: postgres
+#    ports:
+#      - "8081:80"
+#    depends_on:
+#      - postgresdb

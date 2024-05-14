@@ -8,9 +8,9 @@
         <version>3.2.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>git.crimson-catfish</groupId>
+    <groupId>ru.ivanov_savelii</groupId>
     <artifactId>BankingServerDemo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-RELEASE</version>
     <name>BankingServerDemo</name>
     <description>BankingServerDemo</description>
     <properties>
@@ -92,7 +92,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${parent.version}</version>
+                <version>${project.parent.version}</version>
             </plugin>
         </plugins>
     </build>
