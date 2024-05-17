@@ -1,7 +1,8 @@
-CREATE TABLE user
+create table if not exists users
 (
-    id       BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    login    VARCHAR(31)    NOT NULL UNIQUE,
-    passhash VARCHAR(128)   NOT NULL,
-    balance  NUMERIC(19, 2) NOT NULL DEFAULT 500.00
+    id       int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    login    text    not null,
+    password text    not null,
+    balance  numeric not null,
+    PRIMARY KEY (ID)
 );
